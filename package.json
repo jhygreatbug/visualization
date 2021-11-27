@@ -1,0 +1,14 @@
+{
+  "name": "visualization-with-akira",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:jhygreatbug/visualization-with-akira.git",
+  "author": "chenjinying <jhygreatbug@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "http-server -c-1"
+  },
+  "dependencies": {
+    "http-server": "^14.0.0"
+  }
+}
