@@ -4,9 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      canvas {
+        user-select: none;
+      }
+    </style>
   </head>
   <body>
-    <canvas width="400" height="400"></canvas>
+    <canvas width="400" height="400" draggable="false"></canvas>
+    <div>P 到直线 QR 的距离： <span class="dir1"></span></div>
+    <div>P 到线段 QR 的距离： <span class="dir2"></span></div>
     <script type="module" src="./index.js"></script>
   </body>
 </html>
