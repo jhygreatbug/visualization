@@ -59,11 +59,29 @@ const options = [
     defaultParams: '0,35,500,5',
   },
   {
+    name: '摆线',
+    x: (t, r) => r * (t - Math.sin(t)),
+    y: (t, r) => r * (1 - Math.cos(t)),
+    defaultParams: '-10,10,100,10',
+  },
+  {
     name: '星形线',
     x: (t, r) => r * Math.cos(t) ** 3,
     y: (t, r) => r * Math.sin(t) ** 3,
     defaultParams: '0,6.284,100,100',
     closePath: true,
+  },
+  {
+    name: '二阶贝塞尔曲线',
+    x: (t, x0, y0, x1, y1, x2, y2) => (1 - t) ** 2 * x0 + 2 * t * (1 - t) * x1 + t ** 2 * x2,
+    y: (t, x0, y0, x1, y1, x2, y2) => (1 - t) ** 2 * y0 + 2 * t * (1 - t) * y1 + t ** 2 * y2,
+    defaultParams: '0,1,100,-100,0,0,100,50,-100',
+  },
+  {
+    name: '三阶贝塞尔曲线',
+    x: (t, x0, y0, x1, y1, x2, y2, x3, y3) => (1 - t) ** 3 * x0 + 3 * t * (1 - t) ** 2 * x1 + 3 * (1 - t) * t ** 2 * x2 + t ** 3 * x3,
+    y: (t, x0, y0, x1, y1, x2, y2, x3, y3) => (1 - t) ** 3 * y0 + 3 * t * (1 - t) ** 2 * y1 + 3 * (1 - t) * t ** 2 * y2 + t ** 3 * y3,
+    defaultParams: '0,1,100,-100,-100,0,-100,0,100,100,100',
   },
 ];
 options.forEach(option => {
