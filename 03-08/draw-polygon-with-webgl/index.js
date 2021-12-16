@@ -1,4 +1,4 @@
-import { initShaderProgram } from '../lib/webgl.js';
+import { initShaderProgram } from '../../lib/webgl.js';
 
 const vertices = [
   [-0.7, 0.5],
