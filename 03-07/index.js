@@ -1,6 +1,5 @@
 import { parametric2D } from '../lib/parametic2D.js';
 
-
 function drawLines({ points, ctx, closePath }) {
   const { width, height } = ctx.canvas;
   ctx.clearRect(-width / 2, -height / 2, width, height);

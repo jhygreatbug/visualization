@@ -18,3 +18,4 @@ https://time.geekbang.org/column/intro/100053801?tab=catalog
 - - [07-如何用向量和参数方程描述曲线](03-07)
 - - 08-如何用向量和参数方程描述曲线
 - - - [WebGL三角剖分](03-08/draw-polygon-with-webgl)
+- - - [tess2、WebGL画几何图形](03-08/tess2-and-star)

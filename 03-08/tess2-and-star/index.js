@@ -1,28 +1,47 @@
 import { initShaderProgram } from '../../lib/webgl.js';
-import { isPointInPath } from '../../lib/helper.js';
-import Vector2D from '../../lib/vector2d.js';
-
-const vertices = [
-  [-0.7, 0.5],
-  [-0.4, 0.3],
-  [-0.25, 0.71],
-  [-0.1, 0.56],
-  [-0.1, 0.13],
-  [0.4, 0.21],
-  [0, -0.6],
-  [-0.3, -0.3],
-  [-0.6, -0.3],
-  [-0.45, 0.0],
-];
-const verticesData = new Float32Array(vertices.flat());
-
-const triangulations = earcut(vertices.flat())
-const triangulationsData = new Uint16Array(triangulations);
-
-console.log(vertices.flat(), triangulations)
+import { parametric2D } from '../../lib/parametic2D.js';
 
 const canvas = document.querySelector('canvas');
 const gl = canvas.getContext('webgl');
+const canvasW = canvas.width;
+const canvasH = canvas.height;
+
+const convert = points => points.map(([x, y]) => [
+  x * 2 / canvasW,
+  y * 2 / canvasH
+]);
+
+// 椭圆
+const ellipse = convert(parametric2D(
+  (t, x0, y0, a, b) => x0 + a * Math.cos(t),
+  (t, x0, y0, a, b) => y0 + b * Math.sin(t),
+)(0, 6.284, 100, 0, 0, 125, 75));
+
+// 四角星
+const starA = 150;
+const starB = 50;
+const star = convert([
+  [0, starA],
+  [starB, starB],
+  [starA, 0],
+  [starB, -starB],
+  [0, -starA],
+  [-starB, -starB],
+  [-starA, 0],
+  [-starB, starB],
+]);
+
+const contours = [ellipse.flat(), star.flat()];
+const res = Tess2.tesselate({
+  contours,
+  windingRule: Tess2.WINDING_ODD,
+  elementType: Tess2.POLYGONS,
+  polySize: 3, // 这个参数什么意思？
+  vertexSize: 2,
+});
+const verticesData = new Float32Array(res.vertices);
+const triangulations = res.elements;
+const triangulationsData = new Uint16Array(triangulations);
 
 const vertex = `
   attribute vec2 position;
@@ -60,17 +79,7 @@ gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, triangulationsData, gl.STATIC_DRAW);
 const drawGl = (gl, mode, triangulationsLen) => {
   gl.clear(gl.COLOR_BUFFER_BIT);
   gl.drawElements(mode, triangulationsLen, gl.UNSIGNED_SHORT, 0);
-};
+}
 
-drawGl(gl, gl.LINE_STRIP, triangulations.length);
+drawGl(gl, gl.TRIANGLES, triangulations.length);
 
-const canvasW = canvas.width;
-const canvasH = canvas.height;
-canvas.addEventListener('mousemove', function (e) {
-  const { offsetX, offsetY } = e;
-  const x = (offsetX * 2 - canvasW) / canvasW;
-  const y = (canvasH - offsetY * 2) / canvasH;
-  const inPath = isPointInPath(vertices, triangulations, new Vector2D(x, y));
-  const mode = inPath ? gl.TRIANGLES : gl.LINE_STRIP;
-  drawGl(gl, mode, triangulations.length);
-});
