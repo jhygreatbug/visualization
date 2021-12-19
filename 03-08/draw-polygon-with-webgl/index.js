@@ -1,4 +1,6 @@
 import { initShaderProgram } from '../../lib/webgl.js';
+import { isPointInPath } from '../../lib/helper.js';
+import Vector2D from '../../lib/vector2d.js';
 
 const vertices = [
   [-0.7, 0.5],
@@ -11,8 +13,8 @@ const vertices = [
   [-0.3, -0.3],
   [-0.6, -0.3],
   [-0.45, 0.0],
-].flat();
-const verticesData = new Float32Array(vertices);
+];
+const verticesData = new Float32Array(vertices.flat());
 
 const triangulations = earcut(vertices.flat())
 const triangulationsData = new Uint16Array(triangulations);
@@ -53,6 +55,20 @@ const triangulationsBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, triangulationsBuffer);
 gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, triangulationsData, gl.STATIC_DRAW);
 
-gl.clear(gl.COLOR_BUFFER_BIT);
-gl.drawElements(gl.LINE_STRIP, triangulations.length, gl.UNSIGNED_SHORT, 0);
+const drawGl = (gl, mode, triangulations) => {
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.drawElements(mode, triangulations.length, gl.UNSIGNED_SHORT, 0);
+}
 
+drawGl(gl, gl.LINE_STRIP, triangulations);
+
+const canvasW = canvas.width;
+const canvasH = canvas.height;
+canvas.addEventListener('mousemove', function (e) {
+  const { offsetX, offsetY } = e;
+  const x = (offsetX * 2 - canvasW) / canvasW;
+  const y = (canvasH - offsetY * 2) / canvasH;
+  const inPath = isPointInPath(vertices, triangulations, new Vector2D(x, y));
+  const mode = inPath ? gl.TRIANGLES : gl.LINE_STRIP;
+  drawGl(gl, mode, triangulations);
+})
