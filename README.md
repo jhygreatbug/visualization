@@ -19,5 +19,6 @@ https://time.geekbang.org/column/intro/100053801?tab=catalog
 - - 08-如何用向量和参数方程描述曲线？
 - - - [WebGL三角剖分](03-08/draw-polygon-with-webgl)
 - - - [tess2、WebGL画几何图形](03-08/tess2-and-star)
-- - 09-如何用仿射变换对几何图形进行坐标变换？
-- - - [三角粒子效果](03-09/webgl-particles)
+- - 09-如何用仿射变换对几何图形进行坐标变换？ [三角粒子效果](03-09/webgl-particles)
+- 04-视觉基础篇
+- - 10-图形系统如何表示颜色？ [WebGL绘制HSV色盘](04-01)

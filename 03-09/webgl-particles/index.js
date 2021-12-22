@@ -1,6 +1,7 @@
 import { initShaderProgram } from '../../lib/webgl.js';
 
 const PI = Math.PI;
+// todo: 修改为锁帧
 const COUNT_PER_SECOND = 30;
 const START_RADIUS = 10
 
