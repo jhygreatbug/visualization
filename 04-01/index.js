@@ -1,5 +1,5 @@
-import { initShaderProgram } from '../../lib/webgl.js';
-import { parametric2D } from '../../lib/parametic2D.js';
+import { initShaderProgram } from '../lib/webgl.js';
+import { parametric2D } from '../lib/parametic2D.js';
 
 const canvas = document.querySelector('canvas');
 const gl = canvas.getContext('webgl');
