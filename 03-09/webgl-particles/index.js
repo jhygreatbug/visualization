@@ -158,7 +158,7 @@ const draw = lastTime => {
         ...v,
         time: (currentTime - v.startTime) / 1000,
       })
-      gl.drawArrays(gl.TRIANGLES, 0, centerTriangle.length)
+      gl.drawArrays(gl.TRIANGLES, 0, centerTriangle.length / 2)
     });
 
     draw(currentTime);

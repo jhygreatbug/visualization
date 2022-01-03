@@ -1,4 +1,4 @@
-# visualization-with-akira
+# visualization
 
 ## 课程地址
 
@@ -6,7 +6,7 @@ https://time.geekbang.org/column/intro/100053801?tab=catalog
 
 ## 作业预览
 
-[https://jhygreatbug.github.io/visualization-with-akira/](https://jhygreatbug.github.io/visualization-with-akira/)
+[https://jhygreatbug.github.io/visualization/](https://jhygreatbug.github.io/visualization/)
 
 ## 作业目录
 
